@@ -10,4 +10,12 @@ The connnections and the code are given seperately.
 ● If the entered password is correct, then “correct password” is printed on the LCD screen. <br>
 ● If the entered password is incorrect, then “incorrect password…Try again” is printed on the LCD screen.<br><br>
 
+<i><b>Components-</b></i>  <br>
+•	LCD display  <br>
+•	breadboard <br>
+•	Arduino UNO <br>
+•	Push Button <br>
+•	Register <br> <br>
+
+
 The TinkerCad file can be accessed from <a href="https://www.tinkercad.com/things/1W2qrfrqQke-neat-kasi/editel?sharecode=gxLc2v4rYkVjVtX0R_kRNQg9WtxL0id3z_yKO_G4iQQ">here</a>
