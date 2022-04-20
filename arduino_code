@@ -1,0 +1,169 @@
+#include <LiquidCrystal.h>
+
+int PL1 = 13;
+int PL2 = 12;
+int PL3 = 11;
+int PL4 = 10;
+int PL5 = 9;
+int PL6 = 8;
+
+int currentpassword[6]={1,2,3,4,5,6};
+int trailpass[6]={0,0,0,0,0,0};
+int current=0;
+
+int check(){
+  if(currentpassword[0]==trailpass[0]&&currentpassword[1]==trailpass[1]&&currentpassword[2]==trailpass[2]&&currentpassword[3]==trailpass[3]&&currentpassword[4]==trailpass[4]&&currentpassword[5]==trailpass[5])
+    return 1;
+  return 0;
+}
+
+void changepassword(){
+    
+
+  currentpassword[0]=random(5)+1;
+  
+  currentpassword[1]=random(5)+1;
+  
+  currentpassword[2]=random(5)+1;
+  
+  currentpassword[3]=random(5)+1;
+  
+  currentpassword[4]=random(5)+1;
+  
+  currentpassword[5]=random(5)+1;
+  
+  current=0;
+}
+
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("ENTER PASSWORD");
+  pinMode(0, INPUT);
+}
+
+int checkcomp(int k){
+  if(k==6)
+    return 1;
+  return 0;
+}
+
+int complete(){
+ if(current==6)
+   return 1;
+  return 0;
+}
+int add_topass(int array[6],int k){
+  array[current] = k;
+  current = current+1;
+}
+
+void loop() {
+  // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0):
+  lcd.setCursor(0,1);
+  // print the number of seconds since reset:
+  if(current!=6){
+  lcd.print(trailpass[0]);
+  lcd.print(trailpass[1]);
+  lcd.print(trailpass[2]);
+  lcd.print(trailpass[3]);
+  lcd.print(trailpass[4]);
+  lcd.print(trailpass[5]);
+  lcd.print("         ");
+  lcd.setCursor(0,1);
+  }
+  
+  if(digitalRead(0)==LOW){
+  
+    changepassword();
+    lcd.setCursor(0,0);
+  
+    lcd.print("PASSWORD CHANGED");
+  
+    lcd.setCursor(0,1);
+  
+    lcd.print(currentpassword[0]);
+  
+    lcd.print(currentpassword[1]);
+  
+    lcd.print(currentpassword[2]);
+  
+    lcd.print(currentpassword[3]);
+  
+    lcd.print(currentpassword[4]);
+    lcd.print(currentpassword[5]);
+    lcd.print("         ");
+    delay(3000);
+  }
+  if(complete()){
+    lcd.setCursor(0,0);
+    if(check()==1){
+    lcd.print("CORRECT PASSWORD");
+    }
+    else{
+    lcd.print("INCORRECT PASSWORD");
+    lcd.setCursor(0,1);
+    
+    lcd.print("TRY AGAIN");
+    delay(2000);
+    lcd.setCursor(0,0);
+  	lcd.print("ENTER PASSWORD");
+    trailpass[0]=0;
+    trailpass[1]=0;
+    
+    trailpass[2]=0;
+    
+    trailpass[3]=0;
+    
+    trailpass[4]=0;
+    
+    trailpass[5]=0;
+    lcd.setCursor(0,1);
+    current=0;
+    }
+  }
+  
+  
+  
+  pinMode(PL1, INPUT);
+  pinMode(PL2, INPUT);
+  pinMode(PL3, INPUT);
+  pinMode(PL4, INPUT);
+  pinMode(PL5, INPUT);
+  pinMode(PL6, INPUT);
+  
+  if (digitalRead(PL1)==LOW) {
+    add_topass(trailpass,6);
+    delay(200);
+  }
+  if (digitalRead(PL2)==LOW) {
+    add_topass(trailpass,5);
+    delay(200);
+  }
+  if (digitalRead(PL3)==LOW) {
+    add_topass(trailpass,4);
+    delay(200);
+  }
+  if (digitalRead(PL4)==LOW) {
+    add_topass(trailpass,3);
+    delay(200);
+  }
+  if (digitalRead(PL5)==LOW) {
+    add_topass(trailpass,2);
+    delay(200);
+  }
+  if (digitalRead(PL6)==LOW) {
+    add_topass(trailpass,1);
+    delay(200);
+  }
+  
+  
+  
+}
+ 
